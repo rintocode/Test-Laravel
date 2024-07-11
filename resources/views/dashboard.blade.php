@@ -11,9 +11,18 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     <div class="container mt-5">
                         <h2 class="mb-4 text-center">Test Laravel</h2>
+                        <div class="mb-4">
+                            <label for="mesin_id">Mesin ID:</label>
+                            <input type="text" id="mesin_id" class="form-control">
+                        </div>
+                        <div class="mb-4">
+                            <label for="submit_when">Month:</label>
+                            <input type="text" id="submit_when" class="form-control" placeholder="DD-MM-YY">
+                        </div>
                         <table id="myTable" class="table table-bordered">
                             <thead>
                                 <tr>
+                                    <th>Action</th>
                                     <th>id</th>
                                     <th>submit_by</th>
                                     <th>submit_when</th>
@@ -44,8 +53,20 @@
                             var table = $('#myTable').DataTable({
                                 processing: true,
                                 serverSide: true,
-                                ajax: "{{ route('dashboard') }}",
+                                ajax: {
+                                    url: "{{ route('dashboard') }}",
+                                    data: function (d) {
+                                        d.mesin_id = $('#mesin_id').val();
+                                        d.submit_when = $('#submit_when').val();
+                                    }
+                                },
                                 columns: [{
+                                    data: 'action',
+                                    name: 'action',
+                                    orderable: false,
+                                    searchable: false
+                                    },
+                                    {
                                         data: 'id',
                                         name: 'id'
                                     },

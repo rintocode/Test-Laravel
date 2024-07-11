@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('data', function (Blueprint $table) {
             $table->id();
             $table->string('submit_by');
-            $table->date('submit_when');
+            $table->string('submit_when');
             $table->string('site_code');
             $table->string('Activity');
             $table->string('Uom');
